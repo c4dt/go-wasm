@@ -1,0 +1,72 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\title{Golang \& WebAssembly}
+\author{Valérian Rousset @ C4DT}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\section{WebAssembly}
+
+\begin{frame}
+	\frametitle{Why}
+	% more and more browser
+	% need computation speed
+	% js is already worked around so much
+\end{frame}
+
+\begin{frame}
+	\frametitle{How}
+	% assembly for the web
+	% can easily be translated to real asm
+	% all browsers implementor working together
+\end{frame}
+
+\begin{frame}
+	\frametitle{When}
+	% first draft published in
+	% implemented since XX in browsers
+	% quite new but already working in most browser
+\end{frame}
+
+\section{Hello, World!}
+
+\begin{frame}
+	\frametitle{What}
+	% the classic trivial example
+	% go print to console
+	% JS to start built wasm
+	% html to link together
+	% makefile to orchestrate
+\end{frame}
+
+\begin{frame}
+	\frametitle{How}
+	% main.go: main() fmt.Println
+	% main.wasm: GOARCH=wasm GOOS=js go build
+	% main.js: fetch 'main.wasm', compile then run
+	% wasm_exec.js: needed go env to run (setup exit, some runtime)
+	% index.html: load main.js & wasm_exec.js
+\end{frame}
+
+\begin{frame}
+	\frametitle{Do}
+	% `make serve` then check console
+	% change the displayed text, recompile, check
+	% change to panic, what happen -> not catched by promise.catch
+\end{frame}
+
+\end{document}
