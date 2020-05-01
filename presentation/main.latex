@@ -69,4 +69,32 @@
 	% change to panic, what happen -> not catched by promise.catch
 \end{frame}
 
+\section{Call function}
+
+\begin{frame}
+	\frametitle{What}
+	% how to call function from JS, compute in go and get result in JS
+	% simple function which increment it's only argument, may return error, may panic
+	% need a translation between JS & go types
+	% need to make provide callable from JS
+\end{frame}
+
+\begin{frame}
+	\frametitle{How}
+	% js.Value is JS -> Go, js.Wrapper is Go -> JS
+	% js.Value are js value which can be extracted with .Int, .Bool, ...
+	% increment returns interface{}, (but really, should be js.Wrapper)
+
+	% errorJS to wrap, instanceof in js to actually throw
+	% wrapPanic to return errors instead of undefined
+	% create global JS object to expose functions
+\end{frame}
+
+\begin{frame}
+	\frametitle{Do}
+	% `make serve` then check console, modify JS or call `go_wasm.increment` direclty
+	% what happens when given no args
+	% what happens when given wrong type
+\end{frame}
+
 \end{document}
