@@ -92,7 +92,33 @@
 
 \begin{frame}
 	\frametitle{Do}
-	% `make serve` then check console, modify JS or call `go_wasm.increment` direclty
+	% `make serve` then check console, modify JS or call `go_wasm.increment` directly
+	% what happens when given no args
+	% what happens when given wrong type
+\end{frame}
+
+\section{Real project}
+
+\begin{frame}
+	\frametitle{What}
+	% adding typescript & webpack to be a full blown project
+	% no new functionality in respect to "call function" but more usable one
+	% the base one should use after this presentation
+\end{frame}
+
+\begin{frame}
+	\frametitle{How}
+	% typescript need type definition, defined in ./types
+	% as global object, it's a "namespace" which flat functions in it
+	% as no throw in wasm, pretty much everyone returns `... | Error`
+	% need to add ./types in tsconfig.json:typeRoot
+
+	% webpack don't need wasm magic, it's provided as hardcoded reference
+\end{frame}
+
+\begin{frame}
+	\frametitle{Do}
+	% `make serve` then check console, modify TS or call `go_wasm.increment` directly
 	% what happens when given no args
 	% what happens when given wrong type
 \end{frame}
