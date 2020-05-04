@@ -1,0 +1,30 @@
+{
+  "name": "real-project",
+  "version": "0.0.0",
+  "description": "example project for using go & wasm",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c4dt/go-wasm.git"
+  },
+  "author": "C4DT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/c4dt/go-wasm/issues"
+  },
+  "homepage": "https://github.com/c4dt/go-wasm#readme",
+  "dependencies": {
+    "sha.js": "^2.4.11",
+    "tslib": "^1.11.1"
+  },
+  "devDependencies": {
+    "@types/sha.js": "^2.4.0",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
