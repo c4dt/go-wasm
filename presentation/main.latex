@@ -23,104 +23,128 @@
 
 \begin{frame}
 	\frametitle{Why}
-	% more and more browser
-	% need computation speed
-	% js is already worked around so much
+	\begin{itemize}
+		\item more and more browser
+		\item need computation speed
+		\item js is already worked around so much
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
-	% assembly for the web
-	% can easily be translated to real asm
-	% all browsers implementor working together
+	\begin{itemize}
+		\item assembly for the web
+		\item can easily be translated to real asm
+		\item all browsers implementor working together
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{When}
-	% first draft published in
-	% implemented since XX in browsers
-	% quite new but already working in most browser
+	\begin{itemize}
+		\item first draft published in
+		\item implemented since XX in browsers
+		\item quite new but already working in most browser
+	\end{itemize}
 \end{frame}
 
 \section{Hello, World!}
 
 \begin{frame}
 	\frametitle{What}
-	% the classic trivial example
-	% go print to console
-	% JS to start built wasm
-	% html to link together
-	% makefile to orchestrate
+	\begin{itemize}
+		\item the classic trivial example
+		\item go print to console
+		\item JS to start built wasm
+		\item html to link together
+		\item makefile to orchestrate
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
-	% main.go: main() fmt.Println
-	% main.wasm: GOARCH=wasm GOOS=js go build
-	% main.js: fetch 'main.wasm', compile then run
-	% wasm_exec.js: needed go env to run (setup exit, some runtime)
-	% index.html: load main.js & wasm_exec.js
+	\begin{itemize}
+		\item main.go: main() fmt.Println
+		\item main.wasm: GOARCH=wasm GOOS=js go build
+		\item main.js: fetch 'main.wasm', compile then run
+		\item wasm\_exec.js: needed go env to run (setup exit, some runtime)
+		\item index.html: load main.js \& wasm\_exec.js
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
-	% `make serve` then check console
-	% change the displayed text, recompile, check
-	% change to panic, what happen -> not catched by promise.catch
+	\begin{itemize}
+		\item `make serve` then check console
+		\item change the displayed text, recompile, check
+		\item change to panic, what happen -> not catched by promise.catch
+	\end{itemize}
 \end{frame}
 
 \section{Incrementor}
 
 \begin{frame}
 	\frametitle{What}
-	% how to call function from JS, compute in go and get result in JS
-	% simple function which increment it's only argument, may return error, may panic
-	% need a translation between JS & go types
-	% need to make provide callable from JS
+	\begin{itemize}
+		\item how to call function from JS, compute in go and get result in JS
+		\item simple function which increment it's only argument, may return error, may panic
+		\item need a translation between JS \& go types
+		\item need to make provide callable from JS
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
-	% js.Value is JS -> Go, js.Wrapper is Go -> JS
-	% js.Value are js value which can be extracted with .Int, .Bool, ...
-	% increment returns interface{}, (but really, should be js.Wrapper)
+	\begin{itemize}
+		\item js.Value is JS -> Go, js.Wrapper is Go -> JS
+		\item js.Value are js value which can be extracted with .Int, .Bool, ...
+		\item increment returns interface{}, (but really, should be js.Wrapper)
 
-	% errorJS to wrap, instanceof in js to actually throw
-	% wrapPanic to return errors instead of undefined
-	% create global JS object to expose functions
+		\item errorJS to wrap, instanceof in js to actually throw
+		\item wrapPanic to return errors instead of undefined
+		\item create global JS object to expose functions
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
-	% `make serve` then check console, modify JS or call `go_wasm.increment` directly
-	% what happens when given no args
-	% what happens when given wrong type
+	\begin{itemize}
+		\item `make serve` then check console, modify JS or call `go\_wasm.increment` directly
+		\item what happens when given no args
+		\item what happens when given wrong type
+	\end{itemize}
 \end{frame}
 
 \section{Real project}
 
 \begin{frame}
 	\frametitle{What}
-	% adding typescript & webpack to be a full blown project
-	% no new functionality in respect to "incrementor" but more usable one
-	% the base one should use after this presentation
+	\begin{itemize}
+		\item adding typescript \& webpack to be a full blown project
+		\item no new functionality in respect to "incrementor" but more usable one
+		\item the base one should use after this presentation
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
-	% typescript need type definition, defined in ./types
-	% as global object, it's a "namespace" which flat functions in it
-	% as no throw in wasm, pretty much everyone returns `... | Error`
-	% need to add ./types in tsconfig.json:typeRoot
+	\begin{itemize}
+		\item typescript need type definition, defined in ./types
+		\item as global object, it's a "namespace" which flat functions in it
+		\item as no throw in wasm, pretty much everyone returns `... | Error`
+		\item need to add ./types in tsconfig.json:typeRoot
 
-	% webpack don't need wasm magic, it's provided as hardcoded reference
+		\item webpack don't need wasm magic, it's provided as hardcoded reference
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
-	% `make serve` then check console, modify TS or call `go_wasm.increment` directly
-	% what happens when given no args
-	% what happens when given wrong type
+	\begin{itemize}
+		\item `make serve` then check console, modify TS or call `go\_wasm.increment` directly
+		\item what happens when given no args
+		\item what happens when given wrong type
+	\end{itemize}
 \end{frame}
 
 \end{document}
