@@ -69,7 +69,7 @@
 	% change to panic, what happen -> not catched by promise.catch
 \end{frame}
 
-\section{Call function}
+\section{Incrementor}
 
 \begin{frame}
 	\frametitle{What}
@@ -102,7 +102,7 @@
 \begin{frame}
 	\frametitle{What}
 	% adding typescript & webpack to be a full blown project
-	% no new functionality in respect to "call function" but more usable one
+	% no new functionality in respect to "incrementor" but more usable one
 	% the base one should use after this presentation
 \end{frame}
 
