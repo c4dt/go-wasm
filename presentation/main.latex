@@ -24,27 +24,30 @@
 \begin{frame}
 	\frametitle{Why}
 	\begin{itemize}
-		\item more and more browser
-		\item need computation speed
-		\item js is already worked around so much
+		\item more and more work done in browser % crypto, games
+		\item JavaScript (JS) is very slow % dynamically typed, parsed
+		\item is already worked around so much % TypeScript, ScalaJS
+		\item need an efficient way to compute
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
 	\begin{itemize}
-		\item assembly for the web
-		\item can easily be translated to real asm
-		\item all browsers implementor working together
+		\item the "assembly for the web"
+		\item can easily be translated to real assembly
+		\item less parsing, safer types $\rightarrow$ running faster
+		\item should be widely accepted in browsers
+		\item can be a classic compiler target, usually via LLVM
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{When}
 	\begin{itemize}
-		\item first draft published in
-		\item implemented since XX in browsers
-		\item quite new but already working in most browser
+		\item main browser implementors working together since 2015
+		\item draft released in 2017
+		\item ~90\% of browsers supports it in 2020
 	\end{itemize}
 \end{frame}
 
@@ -53,31 +56,31 @@
 \begin{frame}
 	\frametitle{What}
 	\begin{itemize}
-		\item the classic trivial example
-		\item go print to console
+		\item classic simple example
+		\item Go prints to the console
 		\item JS to start built wasm
-		\item html to link together
-		\item makefile to orchestrate
+		\item HTML to link together
+		\item Makefile to build everything
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
 	\begin{itemize}
-		\item main.go: main() fmt.Println
-		\item main.wasm: GOARCH=wasm GOOS=js go build
-		\item main.js: fetch 'main.wasm', compile then run
-		\item wasm\_exec.js: needed go env to run (setup exit, some runtime)
-		\item index.html: load main.js \& wasm\_exec.js
+		\item \texttt{main.go}: \texttt{main()} uses \texttt{fmt.Println} to do \texttt{console.log}
+		\item \texttt{main.wasm}: built with \texttt{GOARCH=wasm GOOS=js go build}
+		\item \texttt{main.js}: fetch \texttt{main.wasm}, compile and run it
+		\item \texttt{wasm\_exec.js}: needed Go environment to run
+		\item \texttt{index.html}: load \texttt{main.js} \& \texttt{wasm\_exec.js}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
 	\begin{itemize}
-		\item `make serve` then check console
+		\item \texttt{make serve} then check console
 		\item change the displayed text, recompile, check
-		\item change to panic, what happen -> not catched by promise.catch
+		\item when it panics; what happens?
 	\end{itemize}
 \end{frame}
 
@@ -86,32 +89,34 @@
 \begin{frame}
 	\frametitle{What}
 	\begin{itemize}
-		\item how to call function from JS, compute in go and get result in JS
-		\item simple function which increment it's only argument, may return error, may panic
-		\item need a translation between JS \& go types
-		\item need to make provide callable from JS
+		\item how to call a go function and get its result, from JS
+		\item simple function which increment it's only argument
+		\item may return error, may panic $\rightarrow$ helper code
+		\item need a translation between JS \& Go types
+		\item need to make function callable from JS
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
 	\begin{itemize}
-		\item js.Value is JS -> Go, js.Wrapper is Go -> JS
-		\item js.Value are js value which can be extracted with .Int, .Bool, ...
-		\item increment returns interface{}, (but really, should be js.Wrapper)
+		\item \texttt{js.Value} is JS $\rightarrow$ Go; \texttt{js.Wrapper} is Go $\rightarrow$ JS
+		\item \texttt{js.Value} can be extracted with \texttt{.Int}, \texttt{.Bool}, ...
+		\item function returns \texttt{interface\{\}}; IMO should be \texttt{js.Wrapper}
 
-		\item errorJS to wrap, instanceof in js to actually throw
-		\item wrapPanic to return errors instead of undefined
-		\item create global JS object to expose functions
+		\item \texttt{errorJS} to return wrapped, \texttt{instanceof} to actually throw
+		\item \texttt{wrapPanic} to return errors instead of \texttt{undefined}
+		\item create global \texttt{JS} object to expose functions
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
 	\begin{itemize}
-		\item `make serve` then check console, modify JS or call `go\_wasm.increment` directly
-		\item what happens when given no args
-		\item what happens when given wrong type
+		\item \texttt{make serve} then check console
+		\item modify JS or call \texttt{go\_wasm.increment} directly
+		\item when given no argument; what happens?
+		\item when given wrong type; what happens?
 	\end{itemize}
 \end{frame}
 
@@ -120,30 +125,31 @@
 \begin{frame}
 	\frametitle{What}
 	\begin{itemize}
-		\item adding typescript \& webpack to be a full blown project
-		\item no new functionality in respect to "incrementor" but more usable one
-		\item the base one should use after this presentation
+		\item adding TypeScript (TS) \& webpack for full starting project
+		\item no new functionality from "incrementor" but more usable
+		\item starting project that one would use after this presentation
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{How}
 	\begin{itemize}
-		\item typescript need type definition, defined in ./types
-		\item as global object, it's a "namespace" which flat functions in it
-		\item as no throw in wasm, pretty much everyone returns `... | Error`
-		\item need to add ./types in tsconfig.json:typeRoot
+		\item TS needs type definitions $\rightarrow$ \texttt{./types}
+		\item as global object, it's a \texttt{namespace} with flat functions in it
+		\item with panic wrapping, it returns \texttt{... | Error}
+		\item need to add \texttt{./types} in \texttt{tsconfig.json:typeRoot}
 
-		\item webpack don't need wasm magic, it's provided as hardcoded reference
+		\item webpack don't need wasm magic, it's only packing TS
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Do}
 	\begin{itemize}
-		\item `make serve` then check console, modify TS or call `go\_wasm.increment` directly
-		\item what happens when given no args
-		\item what happens when given wrong type
+		\item \texttt{make serve} then check console
+		\item modify TS, recompile, check
+		\item when given no argument; what happens?
+		\item when given wrong type; what happens?
 	\end{itemize}
 \end{frame}
 
