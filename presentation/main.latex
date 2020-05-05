@@ -153,4 +153,50 @@
 	\end{itemize}
 \end{frame}
 
+\section{sha256n}
+
+\begin{frame}
+	\frametitle{What}
+	\begin{itemize}
+		\item "real-project" with looping SHA-256 on it's output
+		\item to show off the speed of wasm
+		\item reference implementation of \texttt{sha.js} vs \texttt{crypto/sha256}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How}
+	\begin{itemize}
+		\item time once in Go, once in JS
+		\item keep initial array out of Go to avoid too much optimisation
+		\item JS JIT will warm up quickly, keep \texttt{iterations} low
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Do}
+
+	\begin{block}{}
+	\begin{itemize}
+		\item \texttt{make serve} then check console
+		\item modify TS, recompile, check
+	\end{itemize}
+	\end{block}
+
+	\begin{block}{}
+	\begin{center}
+	\begin{tabular}[]{r | c}
+		\texttt{iterations} & $\approx$ wasm speedup factor \\
+		\hline
+		100 & 7x \\
+		1'000 & 3x \\
+		10'000 & 1.5x \\
+		100'000 & 1x \\
+		1'000'000 & 1.5x \\
+		10'000'000 & 1.5x \\
+	\end{tabular}
+	\end{center}
+	\end{block}
+\end{frame}
+
 \end{document}
