@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/c4dt/go-wasm#readme",
   "dependencies": {
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "ts-loader": "^9.1.2",
-    "typescript": "^4.2.4",
-    "webpack": "^5.37.0",
-    "webpack-cli": "^4.7.0"
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0"
   }
 }
