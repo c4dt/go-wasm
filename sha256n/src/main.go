@@ -8,15 +8,13 @@ import (
 	"syscall/js"
 )
 
-type errorJS struct{ err error }
-type sliceOfByteJS []byte
-
-var _ js.Wrapper = new(errorJS)
-var _ js.Wrapper = new(errorJS)
-
-func (e errorJS) JSValue() js.Value {
-	return js.Global().Get("Error").New(e.err.Error())
+func toJSError(err error) js.Error {
+	return js.Error{
+		Value: js.Global().Get("Error").New(err.Error()),
+	}
 }
+
+type sliceOfByteJS []byte
 
 func (s sliceOfByteJS) JSValue() js.Value {
 	ret := js.Global().Get("Uint8Array").New(len(s))
@@ -30,7 +28,7 @@ func wrapPanic(toWrap jsFunc) jsFunc {
 	return func(this js.Value, args []js.Value) (ret interface{}) {
 		defer func() {
 			if r := recover(); r != nil {
-				ret = errorJS{fmt.Errorf("panic: %w", r)}
+				ret = toJSError(fmt.Errorf("panic: %w", r))
 			}
 		}()
 
@@ -40,7 +38,7 @@ func wrapPanic(toWrap jsFunc) jsFunc {
 
 func sha256n(this js.Value, args []js.Value) interface{} {
 	if len(args) != 2 {
-		return errorJS{errors.New("need the data to hash and the number of iteration")}
+		return toJSError(errors.New("need the data to hash and the number of iteration"))
 	}
 
 	toHashJS := args[0]

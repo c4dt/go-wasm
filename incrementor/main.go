@@ -7,12 +7,10 @@ import (
 	"syscall/js"
 )
 
-type errorJS struct{ err error }
-
-var _ js.Wrapper = new(errorJS)
-
-func (e errorJS) JSValue() js.Value {
-	return js.Global().Get("Error").New(e.err.Error())
+func toJSError(err error) js.Error {
+	return js.Error{
+		Value: js.Global().Get("Error").New(err.Error()),
+	}
 }
 
 type jsFunc func(js.Value, []js.Value) interface{}
@@ -21,7 +19,7 @@ func wrapPanic(toWrap jsFunc) jsFunc {
 	return func(this js.Value, args []js.Value) (ret interface{}) {
 		defer func() {
 			if r := recover(); r != nil {
-				ret = errorJS{fmt.Errorf("panic: %w", r)}
+				ret = toJSError(fmt.Errorf("panic: %w", r))
 			}
 		}()
 
@@ -29,9 +27,9 @@ func wrapPanic(toWrap jsFunc) jsFunc {
 	}
 }
 
-func increment(this js.Value, args []js.Value) interface{} {
+func increment(this js.Value, args []js.Value) any {
 	if len(args) != 1 {
-		return errorJS{errors.New("need one value to return")}
+		return toJSError(errors.New("need one value to return"))
 	}
 
 	toIncrement := args[0].Int()
